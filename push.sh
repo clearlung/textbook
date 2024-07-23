@@ -1,3 +1,5 @@
+date=$(date +"%m/%d") 
+
 git add /home/clear/projects/textbook
-git commit --allow-empty-message -m "" 
+git commit -m $date 
 git push -u origin main
