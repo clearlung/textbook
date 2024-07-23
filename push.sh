@@ -1,3 +1,3 @@
-git pull /home/clear/projects/textbook
-git commit -m --allow-empty-message .
+git add /home/clear/projects/textbook
+git commit -m .
 git push -u origin main
