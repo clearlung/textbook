@@ -1,6 +1,6 @@
 /* 1-14: Write a program to print a histogram of the frequencies of different characters in its input. */
 #include <stdio.h>
-#define LENGTH 26-1
+#define LENGTH 26
 
 typedef struct { 
   int *array;
@@ -31,8 +31,17 @@ int main(void) {
   initializeArray(&alphabet);
   returnNumber(&alphabet);
 
-  for (int i=0; i<LENGTH; i++) {
-    printf("%d ", alphabet.array[i]);
+  int i, j;
+  for (i=0; i<LENGTH; i++) {
+    j = 0;
+    putchar(i+97);
+    printf(" | ");
+    while (alphabet.array[i] > j) {
+      printf("#");
+      j++;
+    }
+    if (alphabet.array[i] > 0) {
+      printf("\n");
+    }
   }
-  printf("\n");
 }

@@ -3,9 +3,15 @@
 #include <stdio.h>
 #define MAXWORDS 10
 
-typedef struct { // I suck with pointers, I'll fix this later if I give a shit
+typedef struct {
   int *lengthArray;
 } Length;
+
+void initializeArray(Length *length) {
+  for (int i=0; i<MAXWORDS; i++) {
+    length->lengthArray[i] = 0;
+  }
+}
 
 void returnLength(Length *length) {
   int c, i, wordLength;
@@ -27,15 +33,19 @@ void returnLength(Length *length) {
 int main(void) {
   Length length;
   length.lengthArray[MAXWORDS];
-  int i;
-  for (i=0; i<MAXWORDS; i++) {
-    length.lengthArray[i] = 0;
-  }
+
+  initializeArray(&length);
   returnLength(&length);
   
+  int i, j;
   for (i=0; i<MAXWORDS; i++) {
+    j = 0;
+    while (length.lengthArray[i] > 0 && length.lengthArray[i] > j) {
+      printf("#");
+      j++;
+    }
     if (length.lengthArray[i] > 0) {
-      printf("%d\n", length.lengthArray[i]);
+      printf("\n");
     }
   }
 }
