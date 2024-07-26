@@ -1,24 +1,41 @@
+//1-13: Write a program to print a histogram of the lengths of words in its input. It is easy to draw the histogram with the bars horizontal; a vertical orientation is more challenging.
+
 #include <stdio.h>
+#define MAXWORDS 10
+
+typedef struct { // I suck with pointers, I'll fix this later if I give a shit
+  int *lengthArray;
+} Length;
+
+void returnLength(Length *length) {
+  int c, i, wordLength;
+  i = 0;
+   
+  while ((c = getchar()) != EOF) {
+    if (c >= 'a' && c <= 'z') {
+      ++wordLength;
+      length->lengthArray[i] = wordLength;
+    }
+    else if (c == ' ' || c == '\n' || c == '\t') {
+      wordLength = 0;
+      if (i < MAXWORDS)
+        i++;
+    }
+  } 
+}
 
 int main(void) {
-  int c, i, nwhite, nother;
-  int ndigit[10];
-
-  nwhite = nother = 0;
-  for (i = 0; i < 10; i++)
-    ndigit[i] = 0;
-
-  while ((c = getchar()) != EOF)
-    if (c >= '0' && c <= '9')
-      ++ndigit[c-'0'];
-    else if (c == ' ' || c == '\n' || c == '\t')
-      ++nwhite;
-    else
-      ++nother;
-
-  printf("digits =");
-  for (i = 0; i < 10; ++i)
-    printf(" %d", ndigit[i]);
-  printf(", white space = %d, other = %d\n",
-      nwhite, nother);
+  Length length;
+  length.lengthArray[MAXWORDS];
+  int i;
+  for (i=0; i<MAXWORDS; i++) {
+    length.lengthArray[i] = 0;
+  }
+  returnLength(&length);
+  
+  for (i=0; i<MAXWORDS; i++) {
+    if (length.lengthArray[i] > 0) {
+      printf("%d\n", length.lengthArray[i]);
+    }
+  }
 }
