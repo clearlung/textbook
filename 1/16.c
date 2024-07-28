@@ -1,6 +1,6 @@
 //1-16: Revise the main routine of the longest-line program so it will correctly print the length of arbitrarily long input lines, and as much as possible of the text.
 #include <stdio.h>
-#define MAXLINE 100000 // I don't really understand this problem is asking me to do.
+#define MAXLINE 100000 //I don't understand what this problem is asking me to do.
 
 int getLine(char line[], int maxline);
 void copy(char to[], char from[]);

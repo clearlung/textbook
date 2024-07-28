@@ -1,7 +1,8 @@
+//1-3: Modify the temperature conversion program to print a heading above the table,
 #include <stdio.h>
 
 int main(void) {
-  int fahr, celsius;
+  float fahr, celsius;
   int lower, upper, step;
 
   lower = 0;
@@ -9,10 +10,10 @@ int main(void) {
   step = 20;
 
   fahr = lower; 
-  printf("Fahr Celsius\n");
+  printf("Fahrenheit\tCelsius\n");
   while (fahr <= upper) {
     celsius = 5 * (fahr-32) / 9;
-    printf("%d\t%d\n", fahr, celsius);
+    printf("%-10.2f\t%-7.2f\n", fahr, celsius);
     fahr = fahr + step; 
   }
 }
