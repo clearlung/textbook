@@ -5,48 +5,56 @@
 #define OUT 0
 #define tabWidth 3
 
-void detab() {
-  int c, spaceCount, state;
-  state = OUT; 
-  spaceCount = 0;
+void stateIsOut(int c, int *state) {
+  if (c != '\t' && c != ' ') {
+    putchar(c);
+  }
+  else if (c == '\t' || c == ' ') {
+    *state = IN;
+  }
+}
+
+void stateIsIn(int c, int *state, int *spaceCount) {
+  if (c != '\t' && c != ' ') {
+    while (*spaceCount > 0) {
+      if (*spaceCount >= tabWidth) {
+        for (int i=0; i<tabWidth; i++) {
+          printf(" ");
+        } 
+        printf("|");
+        *spaceCount -= tabWidth;
+      }
+      else if (*spaceCount < tabWidth) {
+        printf(" ");
+        *spaceCount -= 1;
+      }
+    }
+    putchar(c);
+    *state = OUT;
+  }
+  else if (c == '\t') {
+    *spaceCount += tabWidth;
+  }
+  else if (c == ' ') {
+    *spaceCount += 1;
+  }
+}
+
+void detab(int *spaceCount, int *state) {
+  int c;
 
   while ((c = getchar()) != EOF) {
-    if (state == OUT) {
-      if (c != '\t' && c != ' ') {
-        putchar(c);
-      }
-      else if (c == '\t' || c == ' ') {
-        state = IN;
-      }
-      else
-        printf("fuck");
+    if (*state == OUT) {
+      stateIsOut(c, state);
     }
-    if (state == IN) {
-      if (c != '\t' && c != ' ') {
-        while (spaceCount > 0) {
-          if (spaceCount >= tabWidth) {
-            for (int i=0; i<tabWidth; i++) {
-              printf(" ");
-            } 
-            printf("|");
-            spaceCount -= tabWidth;
-          }
-          else if (spaceCount < tabWidth) {
-            printf(" ");
-            spaceCount -= 1;
-          }
-        }
-        putchar(c);
-        state = OUT;
-      }
-      else if (c == '\t') 
-        spaceCount += tabWidth;
-      else if (c == ' ')
-        spaceCount += 1;
+    if (*state == IN) {
+      stateIsIn(c, state, spaceCount);
     }
   }
 }
 
 int main(void) {
-  detab();
+  int spaceCount = 0;
+  int state = OUT;
+  detab(&spaceCount, &state);
 }
