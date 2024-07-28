@@ -1,4 +1,4 @@
-//1-17: Write a program to print all input lines that are longer than 80 characters
+//1-22: Write a program to "fold" long input lines into two or more shorter lines after the last non-blank character that occurs before the n-th column of input. Make sure your program does something intelligent with very lng lines, and if there are no blanks or tabs before the specified column.
 #include <stdio.h>
 #define MAX 1000
 

@@ -20,7 +20,7 @@ int main(void) {
     }
   }
   
-  if (max == MAXLINE) {
+  if (max >= MAXLINE) {
     printf("String is longer or equal to maximum line length.\n");
     return 1;
   }
