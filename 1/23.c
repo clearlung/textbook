@@ -5,7 +5,6 @@ no functionality to handle excepsions like '"'.
 this program is not intended read or modify a file
 */
 #include <stdio.h>
-#include <stdbool.h>
 
 void handleSingle(char *array, int *i) {
   while (array[(*i)++] != '\n')

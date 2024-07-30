@@ -1,2 +1,3 @@
-# textbook
-terrible solutions to simple problems
+problems I'm stuck on:
+1-24
+2-1
