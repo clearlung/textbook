@@ -1,53 +1,68 @@
 //2-3: Write the function htoi(s), which converts a string of hexadecimal digits (including an optional 0x or 0X) into its equivalent integer value. The allowable digits are 0 through 9, a through f, and A through F.
-//I will only use the '0xXXXXXX' format for convenience.
+//only using "XXXXXX" format for clarity. I'll add more functionality afterwards.
 //this is psuedocode right now.
-int htoi(char *s, int *d) {
-  int i, mode;
+int htoi(char *s, int *d);
+int returnDecimalVal(char s);
+int returnPlaces(char *s);
 
-  //skip past 0x
-  if (s[i++] = 0 && s[i] = 'x' || s[i] = 'X')
-    i = 2;
-  else 
-    return -1;
+int htoi(char *s, int *d) {
 
   //count number of digits.
-  int places = returnPlaces(s, mode);
+  int places = returnPlaces(s);
+
   
   //convert each number to corresponding 0-15 value;
+  //place innermost *s value into outermost *d value
+  int i = 0;
+  d[places-i++] = returnDecimalVal(s[i]);
+  
+  //x2 = x1 * (16 ^ placeValue)
+  i = 0;
+  while (d[i] != -1)
+    d[i] = d[i] * (16 ^ i);
+  
+  //while not terminate: returnValue += d[i++]
+  int totalSum;
+  i = 0; totalSum = 0;
+
+  while (d[i] != -1)
+    totalSum += d[i++];
+  return totalSum;
+}
+
+int returnDecimalVal(char s) {
   int number;
-  if (i >= 1 && i <=9) {
-    number = i;
+  if ((s) >= 1 && s <=9) {
+    number = s;
   }
-  else if (i >= A && i <= F) {
-    switch (i) {
-      case A:
+  else if (s >= 'A' && s <= 'F') {
+    switch (s) {
+      case 'A':
         number = 10;
         break;
-      case B:    
+      case 'B':    
         number = 11;
         break;
-      case C:
+      case 'C':
         number = 12;
         break;
-      case D:
+      case 'D':
         number = 13;
         break;
-      case E:
+      case 'E':
         number = 14;
         break;
-      case F:
+      case 'F':
         number = 15;
         break;
       default:
         break;
     }
   }
-  //while not terminate: rightmost digit in *d++ = leftmost digit in *s++
-  //x2 = x1 * (16 ^ placeValue)
-  //while not terminate: returnValue += d[i++]
+  return number;
 }
 
-int returnPlaces(char *s, int mode) {
+int returnPlaces(char *s) {
   int i = 2;
 
   while (s[i++] != '\0')
@@ -56,11 +71,13 @@ int returnPlaces(char *s, int mode) {
 }
 
 int main(void) {
+  int i;
   char s[50];
   int p[50];
   
   //initialize arrays
-  for (int i=0; i<50; i++) {
+  //this method of initializing arrays is extremely inefficient, especially if there's only one hexadecimal digit being converted.
+  for (i=0; i<50; i++) {
     s[i] = '\0';
   }
   for (i=0; i<50; i++) {
