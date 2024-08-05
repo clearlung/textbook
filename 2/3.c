@@ -1,26 +1,55 @@
 //2-3: Write the function htoi(s), which converts a string of hexadecimal digits (including an optional 0x or 0X) into its equivalent integer value. The allowable digits are 0 through 9, a through f, and A through F.
 //only using "XXXXXX" format for clarity. I'll add more functionality afterwards.
-//this is psuedocode right now.
-int htoi(char *s, int *d);
+//implemented "0xXXXXXX format but undid it all because of a typo
+#include <stdio.h>
+#include <math.h>
+int htoi(char *s, int places);
 int returnDecimalVal(char s);
 int returnPlaces(char *s);
 
-int htoi(char *s, int *d) {
+int main(int argc, char **argv) {
+  int i;
+  char s[50] = "7B3\0";
 
-  //count number of digits.
   int places = returnPlaces(s);
+  int sum = htoi(s, places);
 
-  
+  printf("sum: %d\n",  sum);
+  return 0;
+}
+
+
+int returnPlaces(char *s) {
+  int i = 0;
+
+  while (s[i] != '\0')
+    i++;
+  return i;
+}
+
+int htoi(char *s, int places) {
+  int d[50], i, k;
+  k = 0;
+  //initialize d
+  for (i=0; i<50; i++)
+    d[i] = -1;
+  //count number of digits.
+  //int places = returnPlaces(s);
   //convert each number to corresponding 0-15 value;
   //place innermost *s value into outermost *d value
-  int i = 0;
-  d[places-i++] = returnDecimalVal(s[i]);
-  
-  //x2 = x1 * (16 ^ placeValue)
+
   i = 0;
-  while (d[i] != -1)
-    d[i] = d[i] * (16 ^ i);
+  while (s[i] != '\0')
+    d[places-i-1] = returnDecimalVal(s[i++]);
   
+  printf("initial d: %d\n", d[k]);
+   //x2 = x1 * (16 ^ placeValue)
+  i = 0;
+  while (d[i] != -1) 
+    d[i] = d[i] * pow(16, i++);
+
+  printf("post formula d: %d\n", d[k]);
+
   //while not terminate: returnValue += d[i++]
   int totalSum;
   i = 0; totalSum = 0;
@@ -32,8 +61,8 @@ int htoi(char *s, int *d) {
 
 int returnDecimalVal(char s) {
   int number;
-  if ((s) >= 1 && s <=9) {
-    number = s;
+  if (s >= '0' && s <= '9') {
+    number = s - 48;
   }
   else if (s >= 'A' && s <= 'F') {
     switch (s) {
@@ -60,29 +89,6 @@ int returnDecimalVal(char s) {
     }
   }
   return number;
-}
-
-int returnPlaces(char *s) {
-  int i = 2;
-
-  while (s[i++] != '\0')
-    ;
-  return i;
-}
-
-int main(void) {
-  int i;
-  char s[50];
-  int p[50];
-  
-  //initialize arrays
-  //this method of initializing arrays is extremely inefficient, especially if there's only one hexadecimal digit being converted.
-  for (i=0; i<50; i++) {
-    s[i] = '\0';
-  }
-  for (i=0; i<50; i++) {
-    p[i] = -1;
-  }
 }
 
 /* notes on hexadecimal
