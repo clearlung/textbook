@@ -1,6 +1,7 @@
 // 1-24: Write a program to check a C program for rudimentary syntax errors like unbalanced parentheses, brackets, and braces. Don't forget about quotes, both single and double, escape sequences, and comments. 
 //detect whether closing bracket is present before opening bracket
 //compare number of opening vs closing brackets
+//i don't want to do this exercise, there's just too many exceptions. I'll make it work with brackets without accounting for any exceptions at the very least
 #include <stdio.h>
 #define MAX 1000
 
