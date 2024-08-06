@@ -1,6 +1,5 @@
 //2-3: Write the function htoi(s), which converts a string of hexadecimal digits (including an optional 0x or 0X) into its equivalent integer value. The allowable digits are 0 through 9, a through f, and A through F.
-//only using "XXXXXX" format for clarity. I'll add more functionality afterwards.
-//implemented "0xXXXXXX format but undid it all because of a typo
+//only using "XXXXXX" format for clarity. I don't care about extra functionality
 #include <stdio.h>
 #include <math.h>
 int htoi(char *s, int places);
@@ -9,10 +8,9 @@ int returnPlaces(char *s);
 
 int main(int argc, char **argv) {
   int i;
-  char s[50] = "7B3\0";
 
-  int places = returnPlaces(s);
-  int sum = htoi(s, places);
+  int places = returnPlaces(argv[1]);
+  int sum = htoi(argv[1], places);
 
   printf("sum: %d\n",  sum);
   return 0;
@@ -22,35 +20,24 @@ int main(int argc, char **argv) {
 int returnPlaces(char *s) {
   int i = 0;
 
-  while (s[i] != '\0')
-    i++;
+  while (s[i++] != '\0')
+    ;
+  i -= 2;
   return i;
 }
 
 int htoi(char *s, int places) {
-  int d[50], i, k;
-  k = 0;
-  //initialize d
-  for (i=0; i<50; i++)
-    d[i] = -1;
-  //count number of digits.
-  //int places = returnPlaces(s);
-  //convert each number to corresponding 0-15 value;
-  //place innermost *s value into outermost *d value
+  int d[50], i;
 
   i = 0;
   while (s[i] != '\0')
-    d[places-i-1] = returnDecimalVal(s[i++]);
-  
-  printf("initial d: %d\n", d[k]);
-   //x2 = x1 * (16 ^ placeValue)
+    d[places-i] = returnDecimalVal(s[i++]);
+  d[i] = -1;
+
   i = 0;
   while (d[i] != -1) 
     d[i] = d[i] * pow(16, i++);
 
-  printf("post formula d: %d\n", d[k]);
-
-  //while not terminate: returnValue += d[i++]
   int totalSum;
   i = 0; totalSum = 0;
 
