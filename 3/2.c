@@ -27,16 +27,48 @@ int escape(char *s, char *t) {
   }
 }
 
-int reverseEscape(char *s, char *t);
+int reverseEscape(char *s, char *t) {
+  int i, j;
+  j = i = 0;
+
+  while (t[i] != '\0') {
+    if (t[i] == '\\') {
+      switch (t[++i]) {
+        case 'n':
+          s[j] = '\n';
+          break;
+        case 't':
+          s[j] = '\t';
+          break;
+        default:
+          i--;
+          s[j] = t[i];
+          break;
+      }
+    }
+    else
+      s[j] = t[i];
+    i++; j++;
+  }
+}
 
 int main(void) {
-  char s[MAX] = "Pack my box with ten dozen liquor jugs";
+  char s[MAX] = "Pack my \nbox with ten\t dozen liquor jugs";
   char t[MAX];
-
-  escape(t, s);  
+  int i;
   
-  int i = 0;
+  escape(t, s);   
+  i = 0;
 
   while (t[i] != '\0') 
     putchar(t[i++]);
+  putchar('\n');
+
+  char s2[MAX] = "Ten\\nboxing wizards\\tjump\\quickly";
+  reverseEscape(t, s2);
+
+  i = 0;
+  while (t[i] != '\0') 
+    putchar(t[i++]);
+  putchar('\n');
 }

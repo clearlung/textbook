@@ -5,7 +5,7 @@ unsigned getbits(unsigned x, int p, int n) {
 }
 
 unsigned setbits(unsigned x, int p, int n, unsigned y) {
-
+  
 }
 
 int main(void) {}
